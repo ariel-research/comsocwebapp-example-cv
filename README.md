@@ -13,13 +13,10 @@ else in this repository.
 Requires **Python 3.10+**.
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install --upgrade pip           # avoid "project name unknown" with older pip
-
-# comsocwebapp is not on PyPI yet, so install it straight from GitHub:
-pip install --upgrade "comsocwebapp @ git+https://github.com/ariel-research/comsocwebapp"
-
+python -m venv --system-site-packages venv
+source venv/bin/activate          # Windows: venv\Scripts\activate
+pip install --upgrade pip          # avoid "project name unknown" with older pip
+pip install -r requirements.txt --upgrade
 
 python app.py
 ```
