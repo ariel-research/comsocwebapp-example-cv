@@ -4,16 +4,12 @@ A faculty hiring committee shortlists candidates by approval voting.
 
 Run it::
 
-    pip install "comsocwebapp @ git+https://github.com/ariel-research/comsocwebapp"
+    pip install -r requirements.txt
     python app.py
 
 Then open http://127.0.0.1:5010/ and log in as admin@example.com / admin.
 
-Everything this application needs is in this folder: the configuration, the
-problem definition, one custom rule and one overridden template.  Copy the
-folder into a repository of your own and it keeps working -- see README.md.
-
-Polls come from two places.  What is not secret -- the port, the database
+Settings come from two places.  What is not secret -- the port, the database
 path, the folders -- is the CONFIG dict below, and is committed.  What is
 secret -- the session key, any OAuth client secrets, a database password --
 goes in a .env file next to this one, which .gitignore keeps out of the
