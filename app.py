@@ -172,10 +172,11 @@ def build_app():
     return create_app(CONFIG, instance_path=os.path.dirname(CONFIG["DATABASE_FILE"]))
 
 
+app = build_app()
+seed(app)
+
 if __name__ == "__main__":
-    application = build_app()
-    seed(application)
-    port = application.config["PORT"]
-    for label, uri in oauth.redirect_uris(f"http://127.0.0.1:{port}", application):
+    port = app.config["PORT"]
+    for label, uri in oauth.redirect_uris(f"http://127.0.0.1:{port}", app):
         print(f"Register this redirect URI in the {label} console: {uri}")
-    application.run(port=port, debug=True)
+    app.run(port=port, debug=True)
