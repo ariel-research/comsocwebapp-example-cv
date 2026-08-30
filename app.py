@@ -36,16 +36,16 @@ CONFIG = {
     "PORT": 5010,  # Port for the development server.
     "LANGUAGE": "en", # The GUI language: one of comsocwebapp.i18n.available_languages().
 
-    "DATABASE_ENGINE": "sqlite",  # or postgresql / mysql / mariadb
+    "DATABASE_ENGINE": "mariadb",  # or postgresql / sqlite / mysql
 
     # SQLite wants only a path, kept next to the code:
-    "DATABASE_FILE": os.path.join(HERE, "instance", "faculty_hiring.sqlite"),
+    # "DATABASE_FILE": os.path.join(HERE, "instance", "faculty_hiring.sqlite"),
 
     # For a server engine, replace the DATABASE_FILE line above with these four:
-    #   "DATABASE_HOST": "localhost",
-    #   "DATABASE_PORT": 5432,
-    #   "DATABASE_NAME": "faculty_hiring",
-    #   "DATABASE_USER": "hiring_app",
+       "DATABASE_HOST": "localhost",
+       "DATABASE_PORT": 3306,   # 5432 for postgresql, 3306 for mysql/mariadb
+       "DATABASE_NAME": "faculty_hiring",
+       "DATABASE_USER": "hiring_app",
     # and add DATABASE_PASSWORD in .env.
 
     "TEMPLATE_FOLDER": os.path.join(HERE, "templates"),
@@ -132,7 +132,8 @@ def seed(app):
     """
     with app.app_context():
         if not db.ensure_db():
-            print(f"Using the existing database at {app.config['DATABASE_FILE']}.")
+            name = app.config.get("DATABASE_NAME") or app.config.get("DATABASE_FILE")
+            print(f"Using the existing database at {name}.")
             return
 
         COMMITTEE_SIZE = 3
@@ -165,7 +166,8 @@ def seed(app):
 
 def build_app():
     """Application factory -- also usable as `flask --app app:build_app run`."""
-    return create_app(CONFIG, instance_path=os.path.dirname(CONFIG["DATABASE_FILE"]))
+    # return create_app(CONFIG, instance_path=os.path.dirname(CONFIG["DATABASE_FILE"]))
+    return create_app(CONFIG)
 
 
 app = build_app()
